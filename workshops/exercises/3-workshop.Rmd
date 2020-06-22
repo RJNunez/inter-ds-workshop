@@ -1,5 +1,5 @@
 ---
-title: "Identifying DNA fragment that increase weight in mice"
+title: "Workshop: Visualizing data distributions"
 output: github_document
 ---
 
