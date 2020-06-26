@@ -38,7 +38,52 @@ The last dataset contains information on US Mass shootings of recent history. Fo
 - X3P: three pointers made
 - X3PA: three pointers attempted
 - X3P.: three point percentage
-- FT:
-- FTA:
-- FT.:
+- FT: free throws made
+- FTA: free throws attempted
+- FT.: free throws percentage
+- ORB: offensive rebounds
+- DRB: deffensive rebounds
+- TRB: total rebounds
+- AST: assists
+- STL: steals
+- BLK: blocks
+- TOV: turn overs
+- PF: personal fouls
+- PTS: points
+- GmSc: a metric intended to give a total perspective on a player’s statistical performance in a basketball game (more [here](https://captaincalculator.com/sports/basketball/game-score-calculator/))
+- PM: a metric intented to measure a players contribution to the game (more [here](https://www.basketball-reference.com/about/bpm2.html))
+- Season: self explanatory
+- Date: self explanatory
+- Status: either regular season or playoff
+- Name: name of the player
+- LName: last name of the player
+
+### Variables for US Mass Shootings data
+- case: event identifier
+- location: location in the US
+- date: self explanatory
+- summary: summary of the event
+- fatalities: number of people killed
+- injured: number of people injured
+- total_victims: number of afflicted victims
+- location_1: general description of where the shooting happened
+- age_of_shooter: self explanatory
+- prior_signs_mental_health_issues: indicator variable with information of mental health of shooter
+- mental_health_details: information on mental healt status
+- weapons_obtained_legally: indicator of whether the weapon was obtained legally 
+- where_obtained: where the weapon was obtained
+- weapon_type: weapon classification
+- weapon_details: information on the weapon
+- race: race of the shooter
+- gender: gender of the shooter
+- sources: references
+- mental_health_sources: references
+- sources_additional_age: references
+- lattitude: self explanatory
+- longitude: self explanatory
+- type: type of shooting
+- year: self explanatory
+
+
+
 
