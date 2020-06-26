@@ -8,14 +8,37 @@ This will be an open-ended project in which each group will be assigned a datase
 
 # Datasets
 
-This folder contains 4 datasets that will be use by the predetermined groups of students for the the first week project. The 4 data sets are:
+Four datasets are included here:
 
 1. ___kobe-bryant.csv___
 2. ___lebron-james.csv___
 3. ___michael-jordan.csv___
 4. ___us-mass-shootings.csv___, 
 
-The first three datasets contain information on three of the best players in NBA history: [Kobe Bryant](https://en.wikipedia.org/wiki/Kobe_Bryant), [Lebron James](https://en.wikipedia.org/wiki/LeBron_James), and [Michael Jordan](https://en.wikipedia.org/wiki/Michael_Jordan). Specifically, each file has the player statistics for each game played. Below you can find a description of the variables.
+The first three datasets contain information on three of the best players in NBA history: [Kobe Bryant](https://en.wikipedia.org/wiki/Kobe_Bryant), [Lebron James](https://en.wikipedia.org/wiki/LeBron_James), and [Michael Jordan](https://en.wikipedia.org/wiki/Michael_Jordan). Specifically, each file has the player statistics for each game played. The data comes from the [Basketball-Reference website](https://www.basketball-reference.com). Below you can find a description of the variables.
 
-The last dataset contains information on US Mass shootins of recent history. For each event, the dataset contains demographic information on the shooter, location, fatalities, and others. Like the other datasets, you can find a description of the variables below. 
+The last dataset contains information on US Mass shootings of recent history. For each event, the dataset contains demographic information on the shooter, location, fatalities, and others. These data were obtained from the [Mother Jones website](https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/). Like the other datasets, you can find a description of the variables below. 
+
+### Variables for NBA data
+- Rk: game of the season
+- G: same as Rk
+- Month: self explanatory
+- Day: self explanatory
+- Age.Year: age of the player
+- Age.Day: number of days after the birthday
+- Tm: players team
+- X: indicator variable of home game
+- Opp: opposing team
+- X.1: indicator variable representing win or lose (also includes point differential)
+- GS: indicator of wheter the player started the game
+- MP: minutes played
+- FG: baskets made
+- FGA: baskets attempted
+- FG: field goal percentage
+- X3P: three pointers made
+- X3PA: three pointers attempted
+- X3P.: three point percentage
+- FT:
+- FTA:
+- FT.:
 
