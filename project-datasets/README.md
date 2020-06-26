@@ -1,6 +1,8 @@
 # Project description
 
-This will be an open-ended project in which each group will be assigned a dataset, described below, and they have to turn data into information. It is expected that students apply the material exposed during the week. Specifically, materials presented in __Visualizations with R__ and __Regression Models - Statistical Learning__. For the presentation, each group should follow this structure:
+This will be an open-ended project in which each group will be assigned a dataset, described below, and they have to turn data into information. It is expected that students apply the material exposed during the week. Specifically, the use of tools presented in __Visualizations with R__ and __Regression Models and Analytics__  are expected. For the presentation, each group should follow this structure:
+
+
 
 1. __Exploratory data analysis__: Here we expect the students to apply the visualization techniques presented during the week to gain insight on the characteristics of the variables and the relationships between them. 
 2. __Formulate a question of interest__: Here we expect the students to formulate a question to be answered with data, a hypothesis. 
