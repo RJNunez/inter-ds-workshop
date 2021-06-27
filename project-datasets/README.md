@@ -22,11 +22,17 @@ Four datasets are included here:
 3. ___michael-jordan.csv___
 4. ___us-mass-shootings.csv___
 5. [__netflix.csv__](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-04-20/readme.md)
-6. __spotify.csv__
+6. [__spotify.csv__](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md)
+7. [__coffee-ratings.csv__](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md)
+8. [__austronauts.csv__](https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-07-14)
+9. [__media-coverage-hurricanes](https://fivethirtyeight.com/features/the-media-really-has-neglected-puerto-rico/)
+10. [__artist/artwork__](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-12/readme.md)
 
 The first three datasets contain information on three of the best players in NBA history: [Kobe Bryant](https://en.wikipedia.org/wiki/Kobe_Bryant), [Lebron James](https://en.wikipedia.org/wiki/LeBron_James), and [Michael Jordan](https://en.wikipedia.org/wiki/Michael_Jordan). Specifically, each file has the player statistics for each game played. The data comes from the [Basketball-Reference website](https://www.basketball-reference.com). Below you can find a description of the variables.
 
-The last dataset contains information on US Mass shootings of recent history. For each event, the dataset contains demographic information on the shooter, location, fatalities, and others. These data were obtained from the [Mother Jones website](https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/). Like the other datasets, you can find a description of the variables below. 
+The ___us-mass-shootings.csv___ dataset contains information on US Mass shootings of recent history. For each event, the dataset contains demographic information on the shooter, location, fatalities, and others. These data were obtained from the [Mother Jones website](https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/). Like the other datasets, you can find a description of the variables below. 
+
+The rest of the datasets come from the aformentioned [Tidy Tuesday challenge](https://github.com/rfordatascience/tidytuesday). We included links for their descriptions above.
 
 ### Variables for NBA data
 - Rk: game of the season
