@@ -25,7 +25,7 @@ Four datasets are included here:
 6. [__spotify.csv__](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md)
 7. [__coffee-ratings.csv__](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md)
 8. [__austronauts.csv__](https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-07-14)
-9. [__media-coverage-hurricanes](https://fivethirtyeight.com/features/the-media-really-has-neglected-puerto-rico/)
+9. [__media-coverage-hurricanes__](https://fivethirtyeight.com/features/the-media-really-has-neglected-puerto-rico/)
 10. [__artist/artwork__](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-12/readme.md)
 
 The first three datasets contain information on three of the best players in NBA history: [Kobe Bryant](https://en.wikipedia.org/wiki/Kobe_Bryant), [Lebron James](https://en.wikipedia.org/wiki/LeBron_James), and [Michael Jordan](https://en.wikipedia.org/wiki/Michael_Jordan). Specifically, each file has the player statistics for each game played. The data comes from the [Basketball-Reference website](https://www.basketball-reference.com). Below you can find a description of the variables.
