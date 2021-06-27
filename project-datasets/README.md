@@ -1,21 +1,28 @@
 # Project description
 
-This will be an open-ended project in which each group will be assigned a dataset, described below, and they have to turn data into information. It is expected that students apply the material exposed during the week. Specifically, the use of tools presented in __Visualizations with R__ and __Regression Models and Analytics__  are expected. For the presentation, each group should follow this structure:
-
-
+This will be an open-ended project in which each group will be assigned a dataset, described below, and they have to turn data into information. It is expected that students apply the material exposed during the week. For the presentation, each group should follow this structure:
 
 1. __Exploratory data analysis__: Here we expect the students to apply the visualization techniques presented during the week to gain insight on the characteristics of the variables and the relationships between them. 
 2. __Formulate a question of interest__: Here we expect the students to formulate a question to be answered with data, a hypothesis. 
-3. __Findings and future work__: Here we expect the students to present their findings. This should be a combination of the insights gained from visual inspection and exploratory data analysis plus some form of formal analysis with techniques learned in the regression workshop. 
+3. __Findings and future work__: Here we expect the students to present their findings. This should be a combination of the insights gained from visual inspection  and exploratory data analysis plus some form of formal analysis with techniques learned in the regression workshop. 
+
+For the second-year students we further expect them to:
+
+1. Apply the techniques learned throughout the week using the datasets in the _uncleaned-datasets_ (more below) or provide ways they can integrate the available datasets (cleaned and uncleaned) with other data for a hollistic analysis. 
+2. In the former, students should describe their wrangling procedure and, in the latter, students should provide specific functions to be used if other data is available.
 
 # Datasets
+
+In the _cleaned-datasets_ we provided a myriad of datasets that are ready for exploration and analysis. In the _uncleaned-datasets_ we provide a few datasets that are not ready for analysis and hence some wrangling is needed. Most datasets come from the [Tidy Tuesday challenge](https://github.com/rfordatascience/tidytuesday) and some were obtained and preprocess by the instructor. 
 
 Four datasets are included here:
 
 1. ___kobe-bryant.csv___
 2. ___lebron-james.csv___
 3. ___michael-jordan.csv___
-4. ___us-mass-shootings.csv___, 
+4. ___us-mass-shootings.csv___
+5. [__netflix.csv__](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-04-20/readme.md)
+6. __spotify.csv__
 
 The first three datasets contain information on three of the best players in NBA history: [Kobe Bryant](https://en.wikipedia.org/wiki/Kobe_Bryant), [Lebron James](https://en.wikipedia.org/wiki/LeBron_James), and [Michael Jordan](https://en.wikipedia.org/wiki/Michael_Jordan). Specifically, each file has the player statistics for each game played. The data comes from the [Basketball-Reference website](https://www.basketball-reference.com). Below you can find a description of the variables.
 
