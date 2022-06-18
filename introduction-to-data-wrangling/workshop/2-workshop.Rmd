@@ -1,0 +1,234 @@
+---
+title: 'Workshop: Introduction to Data Wrangling II'
+author: "Rolando J. Acosta"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+# -- Options
+knitr::opts_chunk$set(
+	echo    = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+# -- Libraries
+library(tidyverse)
+library(lubridate)
+```
+
+1. Using the resulting dataset from yesterday, create a figure with `date` on the *x-axis* and `deaths` on the *y-axis* for Puerto Rico. To that same figure, add a line with the average number of deaths (`average`) using the color *steelblue3* and a size of 0.80. Only use *unweighted* data. Label the axes accordingly and add a title to the figure. Describe what you see? 
+
+```{r}
+# -- Loading and wrangling data
+load("../datasets/cdc-excess-deaths-data.rda")
+excess_deaths_subdat <- excess_deaths_dat %>%
+  setNames(c("date", "state", "deaths", "threshold", "average", "type", "outcome")) %>%
+  filter(date <= "2022-03-31")
+```
+
+```{r, fig.height = 4, fig.width = 10, dpi = 300}
+# -- Code to create figure
+excess_deaths_subdat %>%
+  filter(state == "Puerto Rico",
+         type  == "Unweighted") %>%
+  ggplot(aes(date, deaths)) +
+  geom_point(alpha = 0.50,
+             size  = 2) +
+  geom_line(aes(y = average),
+            color = "white",
+            size  = 1) +
+  geom_line(aes(y = average, color = "Average number of deaths"),
+            size  = 0.80) +
+  scale_x_date(date_labels = "%b %Y",
+               date_breaks = "3 months") +
+  scale_color_manual(values = c("steelblue3")) +
+  labs(x        = "Date",
+       y        = "Number of deaths",
+       title    = "Weekly all-cause deaths in Puerto Rico",
+       subtitle = "Using data until March 2022") +
+  theme_bw() +
+  theme(axis.text.x       = element_text(angle = 45, hjust = 1),
+        legend.title      = element_blank(),
+        legend.position   = c(0.50, 0.80),
+        legend.background = element_blank(),
+        legend.text       = element_text(face  = "bold", 
+                                         color = "black",
+                                         size  = 12))
+```
+2. To the same figure above, add a line denoting the `threshold` using the color `red3` and a size of 0.80. Describe what you see?
+
+```{r, fig.height = 4, fig.width = 10, dpi = 300}
+# -- Code to create figure
+excess_deaths_subdat %>%
+  filter(state == "Puerto Rico",
+         type  == "Unweighted") %>%
+  ggplot(aes(date, deaths)) +
+  geom_point(alpha = 0.50,
+             size  = 2) +
+  geom_line(aes(y = average),
+            color = "white",
+            size  = 1) +
+  geom_line(aes(y = average, color = "Average number of deaths"),
+            size  = 0.80) +
+  
+    geom_line(aes(y = threshold),
+            color = "white",
+            size  = 1) +
+  geom_line(aes(y = threshold, color = "Excess deaths threshold"),
+            size  = 0.80) +
+  scale_x_date(date_labels = "%b %Y",
+               date_breaks = "3 months") +
+  scale_color_manual(values = c("steelblue3", "red3")) +
+  labs(x        = "Date",
+       y        = "Number of deaths",
+       title    = "Weekly all-cause deaths in Puerto Rico",
+       subtitle = "Using data until March 2022") +
+  theme_bw() +
+  theme(axis.text.x       = element_text(angle = 45, hjust = 1),
+        legend.title      = element_blank(),
+        legend.position   = c(0.50, 0.80),
+        legend.background = element_blank(),
+        legend.text       = element_text(face  = "bold", 
+                                         color = "black",
+                                         size  = 12))
+```
+
+3. **OPTIONAL:** To the same figure above, paint the data points above the threshold red using the color `red3`. Is there a pattern of red data points? Can you described that? 
+
+```{r, fig.height = 4, fig.width = 10, dpi = 300}
+# -- Code to create figure
+excess_deaths_subdat %>%
+  filter(state == "Puerto Rico",
+         type  == "Unweighted") %>%
+  ggplot(aes(date, deaths)) +
+  geom_point(alpha = 0.50,
+             size  = 2) +
+  geom_point(alpha = 0.80,
+             shape = 21,
+             size  = 2,
+             fill = "red3",
+             data  = filter(excess_deaths_subdat, 
+                            deaths >= threshold,
+                            state  == "Puerto Rico",
+                            type   == "Unweighted")) +
+  geom_line(aes(y = average),
+            color = "white",
+            size  = 1) +
+  geom_line(aes(y = average, color = "Average number of deaths"),
+            size  = 0.80) +
+    geom_line(aes(y = threshold),
+            color = "white",
+            size  = 1) +
+  geom_line(aes(y = threshold, color = "Excess deaths threshold"),
+            size  = 0.80) +
+  scale_x_date(date_labels = "%b %Y",
+               date_breaks = "3 months") +
+  scale_color_manual(values = c("steelblue3", "red3")) +
+  labs(x        = "Date",
+       y        = "Number of deaths",
+       title    = "Weekly all-cause deaths in Puerto Rico",
+       subtitle = "Using data until March 2022") +
+  theme_bw() +
+  theme(axis.text.x       = element_text(angle = 45, hjust = 1),
+        legend.title      = element_blank(),
+        legend.position   = c(0.50, 0.80),
+        legend.background = element_blank(),
+        legend.text       = element_text(face  = "bold", 
+                                         color = "black",
+                                         size  = 12))
+```
+4. Excess deaths is defined as the difference between the **observed number of deaths** and the **average number of deaths**. The Center for Disease Control and Prevention (CDC) uses the Farrington model to estimate excess deaths. This model provides two excess deaths estimates: 1) an unbiased estimate and 2) a conservative estimate. Denote $Y_t$ as the number of deaths at week $t$, $\hat{\mu}_t$ as the average number of deaths at week $t$, and $\hat{\gamma}_t$ as the threshold at week $t$. Then the two estimates are:
+
+$$\begin{aligned}
+\mbox{Unbiased estimate: } Y_t - \hat{\mu}_t \\
+\mbox{Conservative estimate: } Y_t - \hat{\gamma}_t
+\end{aligned}$$
+
+Compute both of these estimates for Puerto Rico. Only use *unweighted* data.
+
+5. Create a figure with `date` on the *x-axis* and the excess deaths estimates on the *y-axis*. Use color to differentiate between the unbiased and conservative estimates. Label the axes accordingly and add a title to the figure. Describe what you see? 
+
+**HINT:** use `pivot_longer`
+
+```{r, fig.height = 4, fig.width = 10, dpi = 300}
+# -- Computing the two estimates
+excess_deaths_subdat <- excess_deaths_subdat %>%
+  mutate(unbiased     = deaths - average, 
+         conservative = deaths - threshold)
+  
+# -- Code to create figure
+excess_deaths_subdat %>%
+  filter(state == "Puerto Rico",
+         type  == "Unweighted") %>%
+  select(date, unbiased, conservative) %>%
+  pivot_longer(-date) %>%
+  ggplot(aes(date, value, color = name, shape = name)) +
+  geom_hline(yintercept = 0, 
+             linetype   = 2) +
+  geom_point(alpha = 0.70,
+             size  = 2) +
+  scale_color_manual(name   = "Type of excess deaths",
+                     values = c("steelblue3", "red3"),
+                     labels = c("Conservative", "Unbiased")) +
+  scale_shape_manual(name   = "Type of excess deaths",
+                     values = c(16, 17),
+                     labels = c("Conservative", "Unbiased")) +
+  labs(x        = "Date",
+       y        = "Excess deaths",
+       title    = "Weekly excess deaths of all-cause mortality in Puerto Rico") +
+  theme_bw() +
+  theme(axis.text.x       = element_text(angle = 45, hjust = 1),
+        legend.position   = c(0.50, 0.80),
+        legend.background = element_rect(color = "black"),
+        legend.title      = element_text(color = "black",
+                                         face  = "bold"),
+        legend.text       = element_text(face  = "bold",
+                                         color = "black"))
+```
+6. Due to the nature of the estimates, many weekly excess death estimates are negative. Mutate the newly created variables so that negative weekly excess death estimates are set to zero. Then, recreate the figure from above.
+
+```{r}
+# -- Setting negative estimates to zero
+excess_deaths_subdat <- excess_deaths_subdat %>%
+  mutate(unbiased     = ifelse(unbiased < 0, 0, unbiased),
+         conservative = ifelse(conservative < 0, 0, conservative))
+```
+
+
+```{r, fig.height = 4, fig.width = 10, dpi = 300}
+# -- Code to create figure
+excess_deaths_subdat %>%
+  filter(state == "Puerto Rico",
+         type  == "Unweighted") %>%
+  select(date, unbiased, conservative) %>%
+  pivot_longer(-date) %>%
+  ggplot(aes(date, value, color = name, shape = name)) +
+  geom_hline(yintercept = 0, 
+             linetype   = 2) +
+  geom_point(alpha = 0.70,
+             size  = 2) +
+  scale_color_manual(name   = "Type of excess deaths",
+                     values = c("steelblue3", "red3"),
+                     labels = c("Conservative", "Unbiased")) +
+  scale_shape_manual(name   = "Type of excess deaths",
+                     values = c(16, 17),
+                     labels = c("Conservative", "Unbiased")) +
+  labs(x        = "Date",
+       y        = "Excess deaths",
+       title    = "Weekly excess deaths of all-cause mortality in Puerto Rico") +
+  theme_bw() +
+  theme(axis.text.x       = element_text(angle = 45, hjust = 1),
+        legend.position   = c(0.50, 0.80),
+        legend.background = element_rect(color = "black"),
+        legend.title      = element_text(color = "black",
+                                         face  = "bold"),
+        legend.text       = element_text(face  = "bold",
+                                         color = "black"))
+```
+
+7. What other data would you incorporate into this analysis? What information do you need to have valid comparisons between Puerto Rico and other states?
+
