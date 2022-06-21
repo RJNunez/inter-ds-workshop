@@ -13,7 +13,7 @@ Workshop: Introduction to Data Wrangling II
 
 **Answer**
 
-4. Excess deaths is defined as the difference between the **observed number of deaths** and the **average number of deaths**. The Center for Disease Control and Prevention (CDC) uses the Farrington model to estimate excess deaths. This model provides two excess deaths estimates: 1) an unbiased estimate and 2) a conservative estimate. Denote $Y_{t}$ as the number of deaths at week $t$, $\hat{\mu}$ as the average number of deaths at week $t$, and $\hat{\gamma}$ as the threshold at week $t$. Then the two estimates are:
+4. Excess deaths is defined as the difference between the **observed number of deaths** and the **average number of deaths**. The Center for Disease Control and Prevention (CDC) uses the Farrington model to estimate excess deaths. This model provides two excess deaths estimates: 1) an unbiased estimate and 2) a conservative estimate. Denote $Y_{t}$ as the number of deaths at week $t$, $\hat{\mu}_t$
 
 $$\begin{aligned}
 \mbox{Unbiased estimate: } Y_t - \hat{\mu}_t \\
