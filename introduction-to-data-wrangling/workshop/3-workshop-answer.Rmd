@@ -1,0 +1,174 @@
+---
+title: 'Workshop: Introduction to Data Wrangling III'
+author: "Rolando J. Acosta"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+# -- Options
+knitr::opts_chunk$set(
+	echo    = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+# -- Libraries
+library(tidyverse)
+library(lubridate)
+```
+
+1. Using the resulting dataset from yesterday and functions learned today, mutate the `type` variable so that the two categories are **weighted** and **unweighted** instead of **Predicted (weighted)** and **Unweighted**. Similarly, mutate the `outcome` variable so that the two categories are **all causes** and **excluding covid-19** instead of **All causes** and **All causes, excluding COVID-19**.
+
+**HINT:** Use `str_to_lower`
+**HINT:** Use `str_replace` or `str_replace_all`
+
+```{r}
+# -- Loading and wrangling the data
+load("../datasets/cdc-excess-deaths-data.rda")
+excess_deaths_subdat <- excess_deaths_dat %>%
+  setNames(c("date", "state", "deaths", "threshold", "average", "type", "outcome")) %>%
+  filter(date <= "2022-03-31") %>%
+    mutate(unbiased     = deaths - average, 
+           conservative = deaths - threshold,
+           unbiased     = ifelse(unbiased < 0, 0, unbiased),
+           conservative = ifelse(conservative < 0, 0, conservative))
+
+# -- Wrangling text data
+excess_deaths_subdat <- excess_deaths_subdat %>%
+  mutate(type    = str_to_lower(type),
+         type    = str_replace_all(type, "predicted |\\(|\\)", ""),
+         outcome = str_to_lower(outcome),
+         outcome = str_replace(outcome, "all causes, ", ""))
+```
+
+2. From now on, subset the data with `type = weighted` and `outcome = all causes`. The relative change from a number $A$ to number $B$ is defined as: 
+
+$$\begin{aligned}
+B / A - 1
+\end{aligned}$$
+
+Compute the relative change in weekly observed deaths compared to the average weekly deaths in Puerto Rico starting in March 2020 (the onset of COVID-19). Create a figure with `date` on the *x-axis* and the newly computed percent change on the *y-axis*. Describe what you see?
+
+**OPTIONAL:** Use `geom_smooth` to distinguish the signal from the noise
+
+
+```{r, fig.height = 4, fig.width = 10, dpi = 300}
+# -- Code to create figure
+excess_deaths_subdat %>%
+    filter(state   == "Puerto Rico",
+           type    == "weighted",
+           outcome == "all causes",
+           date    >= "2020-03-01") %>%
+  mutate(percent_change = deaths / average - 1) %>%
+  ggplot(aes(date, percent_change)) +
+  geom_hline(yintercept = 0,
+             linetype   = 2) +
+  geom_point(alpha = 0.50) +
+  geom_smooth(formula = y ~ x,
+              method  = "loess", 
+              span  = 0.10,
+              alpha = 0.30,
+              size  = 0.70,
+              color = "steelblue3",
+              fill  = "steelblue3") +
+  scale_x_date(date_labels = "%b %Y",
+               date_breaks = "3 months") +
+    labs(x        = "Date",
+         y        = "Percent change from average mortality",
+         title    = "Weekly all-cause percent changes in mortality from average in Puerto Rico",
+         subtitle = "Using data until March 2022") +
+  theme_bw()
+```
+
+3. Let us see if the bumps from above match with COVID-19 mortality. Using the `outcome` variable, create a figure with `date` on the *x-axis* and `deaths` from COVID-19 on the *y-axis*. Compare this figure with the one from above. Describe what you see?
+
+**HINT:** Use `pivot_wider`
+**HINT:** Don't subset with `outcome = all causes`
+
+```{r, fig.height = 4, fig.width = 10, dpi = 300}
+# -- Code to create figure
+excess_deaths_subdat %>%
+  filter(state   == "Puerto Rico",
+         type    == "weighted",
+         date    >= "2020-03-01") %>%
+  select(date, deaths, outcome) %>%
+  pivot_wider(names_from = outcome, values_from = deaths) %>%
+  mutate(covid = `all causes` - `excluding covid-19`) %>%
+  ggplot(aes(date, covid)) +
+  geom_col(color = "black",
+           size  = 0.10) +
+  scale_x_date(date_labels = "%b %Y",
+               date_breaks = "3 months") +
+  labs(x = "Date",
+       y = "COVID-19 deaths",
+       title    = "Weekly COVID-19 deaths in Puerto Rico",
+       subtitle = "Using data until March 2022") +
+  theme_bw()
+```
+
+4. Devised one metric to summarize cumulative excess mortality in Puerto Rico since March 2020 (the onset of COVID-19) using the data you have. This metric should be useful for comparing Puerto Rico to other states. Compute the metric using the dataset. Provide pros and cons of your metric. Is it useful for comparisons? What other data would be useful for this? Where could you find these data?
+
+
+```{r}
+##
+excess_deaths_subdat %>%
+  filter(type    == "weighted",
+         date    >= "2020-03-01") %>%
+  group_by(state) %>%
+  summarize(cu = round(sum(unbiased)),
+            ca = round(mean(average))) %>%
+  ungroup() %>%
+  mutate(metric = cu / ca) %>%
+  ggplot(aes(cu, metric)) +
+  geom_point(size  = 3, 
+             fill  = "steelblue4",
+             color = "white",
+             shape = 21) +
+  scale_x_continuous(trans  = "log10",
+                     labels = scales::comma) +
+  stat_smooth(formula = y ~ x,
+              method = "lm",
+              size   = 1, 
+              color  = "white",
+              se     = F) +
+  stat_smooth(formula = y ~ x,
+              method = "lm",
+              color  = "#db7b2b",
+              se     = F,
+              size   = 0.50) +
+  labs(x        = "Cumulative excess deaths since March 2020",
+       y        = "Devised metric",
+       title    = "Devised metric v Cumulative excess deaths",
+       subtitle = "International comparison") +
+  ggthemes::theme_economist()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
